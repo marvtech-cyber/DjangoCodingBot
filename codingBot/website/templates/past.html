@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+
+{% if code %}
+
+
+    {% for thing in code %}
+
+        {{ thing.question }}<br/>
+        
+       
+        <pre>
+            <code  class=" language-{{thing.language}}">
+                {{ thing.code_answer }}<br/>
+            </code>
+        </pre>
+
+        {{ thing.language}}<br/>
+
+
+    {% endfor %}
+
+{% endif %}
+
+
+{% endblock %}
