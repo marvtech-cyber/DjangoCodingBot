@@ -144,3 +144,10 @@ def past(request):
     else:
         messages.success(request, "Sorry but you are not logged in.....")
         return redirect('home')
+    
+
+def delete_past(request, Past_id):
+    past = Code.objects.get(pk=Past_id)
+    past.delete()
+    messages.success(request, "Deleted successfully")
+    return redirect('past')

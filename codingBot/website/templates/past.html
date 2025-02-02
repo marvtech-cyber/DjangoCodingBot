@@ -8,17 +8,15 @@
 
     {% for thing in code %}
 
-        {{ thing.question }}<br/>
+    {{ thing.id }} : {{ thing.question }}<br/>
         
-       
         <pre>
             <code  class=" language-{{thing.language}}">
                 {{ thing.code_answer }}<br/>
-            </code>
+        </code>
         </pre>
-
-        {{ thing.language}}<br/>
-
+        <a href="{% url 'delete_past' thing.id %}" class="btn btn-outline-secondary btn-sm">Delete This</a>
+        <br><br>
 
     {% endfor %}
 
