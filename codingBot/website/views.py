@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from  dotenv import load_dotenv
 import os
 import openai
+from .models import Code 
 # Authentication imports
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
@@ -41,7 +42,9 @@ def home(request):
                     ]
                 )
                 
-                
+                # Save to database 
+                record = Code(question = code, code_answer = response.choices[0].message.content, language =lang, user=request.user )
+                record.save()
                 return render(request, 'home.html', {'lang_list': lang_list, 'code_response': response.choices[0].message.content, 'lang': lang})
             except Exception as e:
                 return render(request, 'home.html', {'lang_list': lang_list, 'error': str(e), 'lang':lang, 'code': code})
@@ -83,6 +86,10 @@ def suggest(request):
                         }
                     ]
                 )
+
+                # Save to database 
+                record = Code(question = code, code_answer = response.choices[0].message.content, language =lang, user=request.user )
+                record.save()
                 
                 
                 return render(request, 'suggest.html', {'lang_list': lang_list, 'code_response': response.choices[0].message.content, 'lang': lang})
